@@ -1,6 +1,6 @@
-const {Event} = require("../models/eventmodel")
-const {User} = require("../models/usermodel")
-const {Attendance} = require("../models/attendancemodel")
+const Event = require("../models/eventmodel")
+const User = require("../models/usermodel")
+const Attendance = require("../models/attendancemodel")
 const QRCode = require('qrcode')
 
 const generateQRCode = async (req, res) => {
@@ -56,3 +56,5 @@ const getAttendanceReport = async(req, res) => {
         list: entries.map(e => ({ name: e.userId.name, time: e.checkInTime}))
     })
 }
+
+module.exports = { generateQRCode, markAttendance, getAttendanceReport }

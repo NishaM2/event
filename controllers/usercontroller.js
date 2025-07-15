@@ -1,7 +1,6 @@
-const express = require("express")
-const {User} = require("../models/usermodel")
+const User = require("../models/usermodel")
 
-const getprofile = async(req, res) => {
+const getProfile = async(req, res) => {
 
     const user = await User.findById(req.user.userId);
 
@@ -23,7 +22,7 @@ const updateRole = async(req, res) => {
         })
     }
 
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const newrole = req.body.role;
 
     const user = await User.findById(userId);
@@ -45,3 +44,5 @@ const getAllUsers = async(req, res) => {
     const users = await User.find({}, "-password")
     return res.status(200).json({users})
 }
+
+module.exports = { getProfile, updateRole, getAllUsers }

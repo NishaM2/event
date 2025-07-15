@@ -1,18 +1,15 @@
-const multer = require('multer')
-const fs = require("fs")
-const path = require('path')
-const { Event } = require("../models/eventmodel")
+const Event = require("../models/eventmodel")
 
 const uploadPoster = async (req, res) => {
     const eventId = req.params.eventId;
-
-    if(!req.file) {
+    const posterFile = req.files?.poster?.[0];
+    if(!posterFile) {
         return res.status(400).json({ 
             message: "no poster uploaded" 
         });
     }
 
-    const posterPath = req.file.path;
+    const posterPath = posterFile.path;
 
     try {
         const event = await Event.findById(eventId);
@@ -39,14 +36,14 @@ const uploadPoster = async (req, res) => {
 
 const uploadPdf = async (req, res) => {
     const eventId = req.params.eventId;
-
-    if(!req.file) {
+    const pdfFile = req.files?.infopdf?.[0];
+    if(!pdfFile) {
         return res.status(400).json({
             message: "no pdf uploaded"
         })
     }
 
-    const pdfPath = req.file.path
+    const pdfPath = pdfFile.path
 
     try {
         const event = await Event.findById(eventId);
@@ -70,3 +67,5 @@ const uploadPdf = async (req, res) => {
         })
     }
 }
+
+module.exports = { uploadPdf, uploadPoster }

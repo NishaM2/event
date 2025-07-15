@@ -1,7 +1,6 @@
-const express = require("express")
-const {Event} = require("../models/eventmodel")
-const {User} = require("../models/usermodel")
-const {Registration} = require("../models/registrationmodel")
+const Event = require("../models/eventmodel")
+const User = require("../models/usermodel")
+const Registration = require("../models/registrationmodel")
 
 const registerForEvent = async(req, res) => {
     const event = await Event.findById(req.params.eventId);
@@ -41,3 +40,5 @@ const getRegisteredUsers = async(req, res) => {
         users: registrations.map(reg => reg.userId)
     })
 }
+
+module.exports = { registerForEvent, getRegisteredUsers }

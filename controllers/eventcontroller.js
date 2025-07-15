@@ -1,12 +1,11 @@
-const express = require("express")
-const {Event} = require("../models/eventmodel")
+const Event  = require("../models/eventmodel")
 
 const createEvent = async(req, res) => {
     const {title, description, date, time, venue, category,
         organizer, status } = req.body;
     
-    const infopdf = req.files?.infopdf?.[0]?.path
-    const poster = req.files?.poster?.[0]?.path
+    const poster = req.files?.poster?.[0]?.path;
+    const infopdf = req.files?.infopdf?.[0]?.path;
     const createdBy = req.user.userId
 
     const newEvent = await Event.create({
@@ -26,7 +25,7 @@ const getAllEvents = async(req, res) => {
 }
 
 const getEventById = async(req, res) => {
-    const event = await Event.findById(req.params.id)
+    const event = await Event.findById(req.params.eventId)
     if(!event) {
         return res.status(404).json({message: "event not found"})
     }
@@ -34,7 +33,7 @@ const getEventById = async(req, res) => {
 }
 
 const updateEvent = async(req,res) => {
-    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.eventId, req.body, { new: true });
     if(!updatedEvent) {
         return res.status(404).json({message: "event not found"})
     }
@@ -45,13 +44,14 @@ const updateEvent = async(req,res) => {
 }
 
 const deleteEvent = async(req, res) => {
-    const deletedEvent = await Event.findByIdAndDelete(req.params.id);
+    const deletedEvent = await Event.findByIdAndDelete(req.params.eventId);
     if(!deletedEvent) {
         return res.status(404).json({message: "event not found"})
     }
-    return res.status(400).json({
+    return res.status(200).json({
         message: "event deleted successfully",
         event: deletedEvent
     })
 }
 
+module.exports = { createEvent, getAllEvents, getEventById, updateEvent, deleteEvent }

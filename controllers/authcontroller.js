@@ -1,5 +1,5 @@
 const express = require("express");
-const {User} = require("../models/usermodel");
+const User = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -27,10 +27,11 @@ const registerUser = async (req, res) => {
         })
 
         return res.status(200).json({
-            message: "User created successfully",
+            message: "User created successfully"
         })
         
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             message: "Error creating user"
         })
@@ -79,4 +80,4 @@ const loginUser = async(req, res) => {
     }
 }
 
-
+module.exports = { registerUser, loginUser }

@@ -1,6 +1,6 @@
-const { Attendance } = require("../models/attendancemodel")
-const { Event } = require("../models/eventmodel")
-const { User } = require("../models/usermodel")
+const Attendance = require("../models/attendancemodel")
+const Event = require("../models/eventmodel")
+const  User  = require("../models/usermodel")
 const { certificateGenerator } = require("../utils/certificatemaker")
 const fs = require('fs')
 const path = require("path")
@@ -59,3 +59,5 @@ const downloadCertificate = async (req, res) => {
         })
     }
 }
+
+module.exports = { generateCertificates, downloadCertificate }

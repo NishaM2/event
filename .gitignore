@@ -1,7 +1,0 @@
-.env
-node_modules
-uploads/
-*.pdf
-*.jpg
-*.jpeg
-*.png
